@@ -55,7 +55,7 @@ def main() -> int:
     args = parse_args()
     output_path = resolve_output_path(args)
 
-    # baseline 只负责推理闭环，不引入训练依赖；后续 QLoRA 会复用同样的模型配置。
+    # baseline 只验证推理闭环，不引入训练逻辑；后续 QLoRA 仍复用这套模型参数。
     inference_config = InferenceConfig(
         model_id=args.model_id,
         adapter_path=args.adapter_path,
@@ -99,7 +99,7 @@ def main() -> int:
     print("Model loaded.")
 
     print(f"\nLoading ChartQA streaming dataset split={args.split!r}...")
-    # 小批量 baseline 用 streaming，避免为了 5/20 条样本下载完整数据集。
+    # 小批量测试用 streaming，避免为了 5/20/100 条样本下载完整数据集。
     dataset = load_dataset("HuggingFaceM4/ChartQA", split=args.split, streaming=True)
 
     records: list[dict[str, Any]] = []
@@ -128,7 +128,7 @@ def main() -> int:
             image_path=None,
         )
 
-        # 这里只打印快速 exact；正式报告用 scripts/evaluate_predictions.py 重新计算 relaxed 指标。
+        # 这里的 exact 只用于现场观察；正式报告用 evaluate_predictions.py 重新算 relaxed 指标。
         is_exact = exact_match(result.answer, reference_answer)
         record = asdict(result)
         record.update(
@@ -163,6 +163,7 @@ def main() -> int:
     if args.drive_output_dir:
         args.drive_output_dir.mkdir(parents=True, exist_ok=True)
         drive_output_path = args.drive_output_dir / output_path.name
+        # copy2 写入固定文件名；重复运行同一个 RUN_NAME 会覆盖，不会在 Drive 中无限累积。
         shutil.copy2(output_path, drive_output_path)
         print(f"Copied output to Drive: {drive_output_path}")
 

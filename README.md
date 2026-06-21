@@ -80,4 +80,4 @@ Run the real ChartQA baseline on Colab GPU, not locally.
 & 'D:\ProgramData\anaconda3\envs\torch_tf_cuda129\python.exe' scripts\evaluate_predictions.py --predictions outputs\chartqa_val_baseline_20.jsonl --dry-run
 ```
 
-Run real evaluation on JSONL files generated in Colab.
+Run real evaluation on JSONL files generated in Colab. Test-stage evaluation saves metrics by default; detailed error files are optional and should not be copied to Drive unless needed.

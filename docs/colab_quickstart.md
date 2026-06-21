@@ -104,8 +104,7 @@ This cell performs inference, local JSONL saving, Drive backup, and a small exac
 !python scripts/evaluate_predictions.py \
   --predictions outputs/chartqa_val_baseline_20.jsonl \
   --metrics-output outputs/chartqa_val_baseline_20_metrics.json \
-  --errors-output outputs/chartqa_val_baseline_20_errors.jsonl \
-  --evaluated-output outputs/chartqa_val_baseline_20_evaluated.jsonl
+  --drive-metrics-dir /content/drive/MyDrive/qwen25vl-chartqa-qlora/outputs/metrics
 ```
 
 ## Checkpoint and Cache Policy

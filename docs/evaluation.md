@@ -12,9 +12,22 @@ It reports:
 - relaxed correctness;
 - latency summary;
 - grouped metrics by `human_or_machine`;
-- evaluated records and error records.
+- optional evaluated records and error records when explicitly requested.
 
 ## Colab Cell
+
+```python
+%cd /content/qwen25vl-chartqa-qlora
+
+!python scripts/evaluate_predictions.py \
+  --predictions outputs/chartqa_val_baseline_20.jsonl \
+  --metrics-output outputs/chartqa_val_baseline_20_metrics.json \
+  --drive-metrics-dir /content/drive/MyDrive/qwen25vl-chartqa-qlora/outputs/metrics
+```
+
+This default test-stage command writes only a small metrics JSON and backs it up to Drive.
+
+When detailed error inspection is needed, request those files explicitly:
 
 ```python
 %cd /content/qwen25vl-chartqa-qlora
@@ -26,18 +39,7 @@ It reports:
   --evaluated-output outputs/chartqa_val_baseline_20_evaluated.jsonl
 ```
 
-Back up evaluation outputs to Drive in the same notebook cell when needed:
-
-```python
-from pathlib import Path
-
-drive_dir = Path("/content/drive/MyDrive/qwen25vl-chartqa-qlora/outputs/chartqa_baseline")
-drive_dir.mkdir(parents=True, exist_ok=True)
-
-!cp outputs/chartqa_val_baseline_20_metrics.json "{drive_dir}/chartqa_val_baseline_20_metrics.json"
-!cp outputs/chartqa_val_baseline_20_errors.jsonl "{drive_dir}/chartqa_val_baseline_20_errors.jsonl"
-!cp outputs/chartqa_val_baseline_20_evaluated.jsonl "{drive_dir}/chartqa_val_baseline_20_evaluated.jsonl"
-```
+Do not copy detailed `errors` and `evaluated` files to Drive during routine tests. They can be regenerated from the prediction JSONL.
 
 ## Notes
 
@@ -48,4 +50,3 @@ Examples from the current baseline:
 - `Not too much/ not at all` vs `Not too much/not at all`: text normalization should count this as correct.
 - `72` vs `0.72`: relaxed numeric can count this as a percent-scale match.
 - `Blue` vs `Light blue`: this remains wrong because the color is less specific.
-
