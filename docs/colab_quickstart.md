@@ -24,29 +24,21 @@ If the repository already exists:
 !git pull
 ```
 
-### 2. Optional Domestic Hugging Face Mirror
-
-```python
-%env HF_ENDPOINT=https://hf-mirror.com
-```
-
-Use this only when official Hugging Face downloads are slow or unstable.
-
-### 3. Install Dependencies
+### 2. Install Dependencies
 
 Colab usually has a compatible PyTorch build. Avoid reinstalling torch unless needed.
 
 ```python
-!pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+!pip install -r requirements.txt
 ```
 
 If dependency conflicts appear, install only missing project packages first:
 
 ```python
-!pip install trl peft qwen-vl-utils gradio datasets accelerate evaluate -i https://pypi.tuna.tsinghua.edu.cn/simple
+!pip install trl peft qwen-vl-utils gradio datasets accelerate evaluate bitsandbytes
 ```
 
-### 4. Mount Google Drive
+### 3. Mount Google Drive
 
 ```python
 from google.colab import drive
@@ -59,13 +51,15 @@ Recommended Drive root:
 PROJECT_DRIVE = "/content/drive/MyDrive/qwen25vl-chartqa-qlora"
 ```
 
-### 5. Environment Check
+### 4. Optional Environment Check
 
 ```python
 !python scripts/env_check.py --output outputs/env_check_colab.json
 ```
 
-### 6. Baseline Single Image
+This is optional. In normal Colab work, it is enough to confirm the runtime shows a GPU and then run the baseline/training script.
+
+### 5. Baseline Single Image
 
 Upload or place one chart image at `/content/example_chart.png`, then run:
 
@@ -84,6 +78,23 @@ from pathlib import Path
 
 print(Path("outputs/baseline_single.jsonl").read_text(encoding="utf-8"))
 ```
+
+### 6. ChartQA Small-Batch Baseline
+
+After single-image baseline works, run a 5-sample ChartQA baseline:
+
+```python
+%cd /content/qwen25vl-chartqa-qlora
+
+!python scripts/run_chartqa_baseline.py \
+  --n-samples 5 \
+  --split train \
+  --output outputs/chartqa_baseline_5.jsonl \
+  --drive-output-dir /content/drive/MyDrive/qwen25vl-chartqa-qlora/outputs/chartqa_baseline \
+  --load-in-4bit
+```
+
+This cell performs inference, local JSONL saving, Drive backup, and a small exact-match summary in one run.
 
 ## Checkpoint and Cache Policy
 

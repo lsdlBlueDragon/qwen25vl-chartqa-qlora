@@ -51,7 +51,9 @@
 
 状态：
 - 已完成本地代码骨架和 dry-run。
-- 待 Colab GPU 验证真实模型加载和一张图推理。
+- 已完成 Colab T4 单图 baseline 验证。
+- 已完成 5 条 ChartQA notebook 小样本 baseline 验证。
+- 已新增 `scripts/run_chartqa_baseline.py`，待 Colab 用脚本复跑验证。
 
 ## 阶段 3：ChartQA 数据转换
 

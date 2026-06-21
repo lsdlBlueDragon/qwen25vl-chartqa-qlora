@@ -64,3 +64,11 @@ This only checks environment visibility. It does not download models, load Chart
 ```
 
 This validates the baseline CLI without loading the model.
+
+## ChartQA Baseline Dry Run
+
+```powershell
+& 'D:\ProgramData\anaconda3\envs\torch_tf_cuda129\python.exe' scripts\run_chartqa_baseline.py --n-samples 5 --dry-run
+```
+
+Run the real ChartQA baseline on Colab GPU, not locally.

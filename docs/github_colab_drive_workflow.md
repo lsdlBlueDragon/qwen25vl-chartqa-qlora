@@ -126,17 +126,10 @@ Each new Colab runtime should start from GitHub:
 ```python
 !git clone https://github.com/<your-user>/qwen25vl-chartqa-qlora.git
 %cd qwen25vl-chartqa-qlora
-!pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
-!python scripts/env_check.py --output outputs/env_check_colab.json
+!pip install -r requirements.txt
 ```
 
-If Hugging Face download is slow:
-
-```python
-%env HF_ENDPOINT=https://hf-mirror.com
-```
-
-Keep the official model and dataset IDs in configs even when using a mirror endpoint.
+Keep the official model and dataset IDs in configs.
 
 ## Daily Development Loop
 
@@ -153,7 +146,6 @@ Colab notebook cell:
 
 ```python
 !git pull
-!python scripts/env_check.py
 ```
 
 If code changes are made in Colab:

@@ -61,15 +61,7 @@ Hugging Face Space 职责：
 
 首选官方 Hugging Face 源，保证模型和数据来源可解释。
 
-如果国内网络不稳定，可以在 Colab 或本地临时设置镜像端点：
-
-Colab notebook cell：
-
-```python
-%env HF_ENDPOINT=https://hf-mirror.com
-```
-
-Windows PowerShell：
+如果本地 Hugging Face 下载不稳定，可以在 Windows PowerShell 临时设置镜像端点：
 
 ```powershell
 $env:HF_ENDPOINT='https://hf-mirror.com'

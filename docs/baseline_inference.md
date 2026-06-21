@@ -42,12 +42,6 @@ After cloning the repo and installing dependencies in notebook cells:
   --load-in-4bit
 ```
 
-If Hugging Face download is slow:
-
-```python
-%env HF_ENDPOINT=https://hf-mirror.com
-```
-
 Keep the official model id in config:
 
 ```text
@@ -74,3 +68,20 @@ Successful baseline verification means:
 2. one chart image returns a concise answer;
 3. output JSONL is created;
 4. no training code is invoked.
+
+## ChartQA Small-Batch Baseline
+
+Once single-image inference succeeds, use the repo script instead of handwritten notebook logic:
+
+```python
+%cd /content/qwen25vl-chartqa-qlora
+
+!python scripts/run_chartqa_baseline.py \
+  --n-samples 5 \
+  --split train \
+  --output outputs/chartqa_baseline_5.jsonl \
+  --drive-output-dir /content/drive/MyDrive/qwen25vl-chartqa-qlora/outputs/chartqa_baseline \
+  --load-in-4bit
+```
+
+The script loads the model once, streams ChartQA samples, writes JSONL predictions, copies the output to Drive, and prints exact-match results.

@@ -1,0 +1,24 @@
+dataset:
+  name: HuggingFaceM4/ChartQA
+  split: train
+  n_samples: 5
+  access_mode: streaming
+
+model:
+  model_id: Qwen/Qwen2.5-VL-3B-Instruct
+  adapter_path: null
+  load_in_4bit: true
+  device_map: auto
+  torch_dtype: auto
+  min_pixels: 50176
+  max_pixels: 401408
+
+generation:
+  max_new_tokens: 64
+  temperature: 0.0
+  top_p: 1.0
+
+outputs:
+  local_path: outputs/chartqa_baseline_5.jsonl
+  drive_output_dir: /content/drive/MyDrive/qwen25vl-chartqa-qlora/outputs/chartqa_baseline
+
