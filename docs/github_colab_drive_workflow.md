@@ -119,19 +119,21 @@ HF_HOME = f"{PROJECT_DRIVE}/cache/huggingface"
 
 ## Colab Startup Flow
 
+Colab instructions should be written as notebook cells that can be pasted directly into `.ipynb`.
+
 Each new Colab runtime should start from GitHub:
 
-```bash
-git clone https://github.com/<your-user>/qwen25vl-chartqa-qlora.git
-cd qwen25vl-chartqa-qlora
-pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
-python scripts/env_check.py --output outputs/env_check_colab.json
+```python
+!git clone https://github.com/<your-user>/qwen25vl-chartqa-qlora.git
+%cd qwen25vl-chartqa-qlora
+!pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+!python scripts/env_check.py --output outputs/env_check_colab.json
 ```
 
 If Hugging Face download is slow:
 
-```bash
-export HF_ENDPOINT=https://hf-mirror.com
+```python
+%env HF_ENDPOINT=https://hf-mirror.com
 ```
 
 Keep the official model and dataset IDs in configs even when using a mirror endpoint.
@@ -147,11 +149,11 @@ git commit -m "<short message>"
 git push
 ```
 
-Colab:
+Colab notebook cell:
 
-```bash
-git pull
-python scripts/env_check.py
+```python
+!git pull
+!python scripts/env_check.py
 ```
 
 If code changes are made in Colab:
@@ -180,4 +182,3 @@ Use:
 Start with GitHub now.
 
 Use Drive after the first Colab run, when there are actual caches and checkpoints to store.
-

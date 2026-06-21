@@ -32,10 +32,10 @@ The image path does not need to exist for `--dry-run`.
 
 ## Colab Single Image Run
 
-After cloning the repo and installing dependencies:
+After cloning the repo and installing dependencies in notebook cells:
 
-```bash
-python scripts/run_baseline_image.py \
+```python
+!python scripts/run_baseline_image.py \
   --image /content/example_chart.png \
   --question "What is the highest value shown in the chart?" \
   --output outputs/baseline_single.jsonl \
@@ -44,8 +44,8 @@ python scripts/run_baseline_image.py \
 
 If Hugging Face download is slow:
 
-```bash
-export HF_ENDPOINT=https://hf-mirror.com
+```python
+%env HF_ENDPOINT=https://hf-mirror.com
 ```
 
 Keep the official model id in config:
@@ -74,4 +74,3 @@ Successful baseline verification means:
 2. one chart image returns a concise answer;
 3. output JSONL is created;
 4. no training code is invoked.
-

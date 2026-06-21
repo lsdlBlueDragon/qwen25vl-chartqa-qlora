@@ -22,6 +22,21 @@ Build a resume-ready AI engineering project that demonstrates:
 
 Local machine usage is limited to non-training smoke tests. Training and full evaluation should run on Colab GPU.
 
+## Colab Usage Rule
+
+Colab instructions in this project should be written as notebook cells that can be pasted directly into `.ipynb`.
+
+Prefer:
+
+```python
+!git clone https://github.com/lsdlBlueDragon/qwen25vl-chartqa-qlora.git
+%cd qwen25vl-chartqa-qlora
+```
+
+Avoid terminal-only Colab snippets such as plain `git clone ...` followed by `cd ...`.
+
+Use shell-style commands only for local Windows/PowerShell documentation.
+
 ## Current Status
 
 - Planning document: `docs/superpowers/specs/2026-06-21-qwen25vl-chartqa-roadmap.md`

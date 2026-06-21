@@ -63,8 +63,10 @@ Hugging Face Space 职责：
 
 如果国内网络不稳定，可以在 Colab 或本地临时设置镜像端点：
 
-```bash
-export HF_ENDPOINT=https://hf-mirror.com
+Colab notebook cell：
+
+```python
+%env HF_ENDPOINT=https://hf-mirror.com
 ```
 
 Windows PowerShell：
@@ -112,4 +114,3 @@ Space：
 5. 所有大文件默认不进 git。
 6. 先验证 Space 能加载 3B 4-bit base，再接 adapter。
 7. 如果部署不稳定，优先降低 `max_pixels`，再升级 GPU。
-
