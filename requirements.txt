@@ -1,0 +1,28 @@
+# Core runtime
+torch>=2.5.0
+torchvision>=0.20.0
+transformers>=4.51.0
+accelerate>=1.2.0
+datasets>=3.2.0
+peft>=0.14.0
+trl>=0.13.0
+bitsandbytes>=0.45.0
+qwen-vl-utils>=0.0.8
+
+# App and data utilities
+gradio>=5.0.0
+pillow>=10.4.0
+numpy>=1.26.0
+pandas>=2.2.0
+pyyaml>=6.0.0
+tqdm>=4.66.0
+evaluate>=0.4.3
+scikit-learn>=1.5.0
+tensorboard>=2.17.0
+
+# Optional for experiment tracking; enable when needed.
+# wandb>=0.18.0
+
+# Optional speed-up on Linux GPU environments. Do not install on Windows by default.
+# flash-attn
+

@@ -1,0 +1,18 @@
+purpose: local_non_training_smoke_test
+
+allowed:
+  - run environment check
+  - validate imports
+  - inspect small local examples
+  - run Gradio UI skeleton
+  - run tiny inference only if memory allows
+
+not_allowed:
+  - full ChartQA download
+  - QLoRA training
+  - full validation or test evaluation
+  - long-running GPU jobs
+
+python:
+  windows_path: D:\ProgramData\anaconda3\envs\torch_tf_cuda129\python.exe
+

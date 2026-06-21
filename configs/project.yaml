@@ -1,0 +1,40 @@
+project:
+  name: qwen25vl-chartqa-qlora
+  route: recommended_3b_chartqa_qlora_gpu_space
+  local_policy: non_training_smoke_tests_only
+
+model:
+  base_model: Qwen/Qwen2.5-VL-3B-Instruct
+  adapter_repo: null
+  trust_remote_code: true
+  min_pixels: 50176
+  max_pixels: 401408
+
+dataset:
+  name: HuggingFaceM4/ChartQA
+  train_split: train
+  validation_split: val
+  test_split: test
+  answer_field: label
+  question_field: query
+  image_field: image
+
+training:
+  backend: colab_gpu
+  method: qlora
+  load_in_4bit: true
+  bnb_4bit_quant_type: nf4
+  bnb_4bit_use_double_quant: true
+  bnb_4bit_compute_dtype: bfloat16
+  lora_r: 8
+  lora_alpha: 16
+  lora_dropout: 0.05
+  gradient_accumulation_steps: 8
+  smoke_train_samples: 100
+
+deployment:
+  target: huggingface_space
+  sdk: gradio
+  preferred_hardware: gpu_t4_or_better
+  local_demo_mode: adapter_optional
+
