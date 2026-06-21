@@ -48,6 +48,7 @@ def load_image(image_path: str | Path) -> Image.Image:
 
 
 def build_messages(image: Image.Image, question: str) -> list[dict[str, Any]]:
+    # 所有入口共用同一份 prompt，保证 baseline、QLoRA adapter 和 Space demo 结果可比较。
     return [
         {
             "role": "user",
@@ -90,6 +91,7 @@ def load_model_and_processor(config: InferenceConfig):
 
     quantization_config = None
     if config.load_in_4bit:
+        # Colab T4/L4 上优先用 4-bit NF4，先保证 3B VLM 能稳定加载和推理。
         quantization_config = BitsAndBytesConfig(
             load_in_4bit=True,
             bnb_4bit_quant_type="nf4",
@@ -107,6 +109,7 @@ def load_model_and_processor(config: InferenceConfig):
     if config.adapter_path:
         from peft import PeftModel
 
+        # LoRA adapter 只挂在 base model 上，不改变 baseline 加载路径，方便做 A/B 对比。
         model = PeftModel.from_pretrained(model, config.adapter_path)
 
     processor = AutoProcessor.from_pretrained(
@@ -131,6 +134,7 @@ def predict(
 
     generation_config = generation_config or GenerationConfig()
     messages = build_messages(image, question)
+    # Qwen2.5-VL 的文本模板和视觉输入必须来自同一份 messages，否则 image token 会对不上。
     text = processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
     image_inputs, video_inputs = process_vision_info(messages)
     inputs = processor(
@@ -175,4 +179,3 @@ def write_jsonl(path: str | Path, records: list[dict[str, Any]]) -> None:
     with output_path.open("w", encoding="utf-8") as handle:
         for record in records:
             handle.write(json.dumps(record, ensure_ascii=False) + "\n")
-

@@ -89,7 +89,8 @@
 - baseline 预测文件可重复评估。
 
 状态：
-- 未开始。
+- 已新增 `src/eval_chartqa.py` 和 `scripts/evaluate_predictions.py`。
+- 待用 Colab 生成的 `chartqa_val_baseline_20.jsonl` 运行一次正式评估。
 
 ## 阶段 5：QLoRA smoke training
 

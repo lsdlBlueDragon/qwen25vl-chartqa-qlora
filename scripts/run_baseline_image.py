@@ -43,6 +43,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
+    # 单图脚本是最小推理闭环；批量 ChartQA baseline 会复用同一套推理配置。
     inference_config = InferenceConfig(
         model_id=args.model_id,
         adapter_path=args.adapter_path,
@@ -68,6 +69,7 @@ def main() -> int:
         print("Generation config:", asdict(generation_config))
         return 0
 
+    # 非 dry-run 会加载 3B 权重，默认应在 Colab GPU 或高显存环境运行。
     image = load_image(args.image)
     model, processor = load_model_and_processor(inference_config)
     result = predict(

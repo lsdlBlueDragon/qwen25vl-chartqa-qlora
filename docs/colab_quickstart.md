@@ -96,6 +96,18 @@ After single-image baseline works, run a 5-sample ChartQA baseline:
 
 This cell performs inference, local JSONL saving, Drive backup, and a small exact-match summary in one run.
 
+### 7. Evaluate Prediction JSONL
+
+```python
+%cd /content/qwen25vl-chartqa-qlora
+
+!python scripts/evaluate_predictions.py \
+  --predictions outputs/chartqa_val_baseline_20.jsonl \
+  --metrics-output outputs/chartqa_val_baseline_20_metrics.json \
+  --errors-output outputs/chartqa_val_baseline_20_errors.jsonl \
+  --evaluated-output outputs/chartqa_val_baseline_20_evaluated.jsonl
+```
+
 ## Checkpoint and Cache Policy
 
 Use Drive for:

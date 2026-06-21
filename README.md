@@ -45,6 +45,7 @@ Use shell-style commands only for local Windows/PowerShell documentation.
 - GitHub/Colab/Drive workflow: `docs/github_colab_drive_workflow.md`
 - Colab quickstart: `docs/colab_quickstart.md`
 - Baseline inference guide: `docs/baseline_inference.md`
+- Evaluation guide: `docs/evaluation.md`
 - Environment check script: `scripts/env_check.py`
 
 ## Local Smoke Test
@@ -72,3 +73,11 @@ This validates the baseline CLI without loading the model.
 ```
 
 Run the real ChartQA baseline on Colab GPU, not locally.
+
+## Evaluation Dry Run
+
+```powershell
+& 'D:\ProgramData\anaconda3\envs\torch_tf_cuda129\python.exe' scripts\evaluate_predictions.py --predictions outputs\chartqa_val_baseline_20.jsonl --dry-run
+```
+
+Run real evaluation on JSONL files generated in Colab.

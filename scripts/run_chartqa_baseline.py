@@ -1,6 +1,5 @@
 import argparse
 import json
-import re
 import shutil
 import sys
 import time
@@ -12,6 +11,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
+from src.eval_chartqa import exact_match  # noqa: E402
 from src.infer import (  # noqa: E402
     DEFAULT_MODEL_ID,
     GenerationConfig,
@@ -19,17 +19,6 @@ from src.infer import (  # noqa: E402
     load_model_and_processor,
     predict,
 )
-
-
-def normalize_answer(value: Any) -> str:
-    text = str(value).strip().lower()
-    text = re.sub(r"[,，]", "", text)
-    text = re.sub(r"\s+", " ", text)
-    return text
-
-
-def exact_match(prediction: Any, reference: Any) -> bool:
-    return normalize_answer(prediction) == normalize_answer(reference)
 
 
 def parse_args() -> argparse.Namespace:
@@ -66,6 +55,7 @@ def main() -> int:
     args = parse_args()
     output_path = resolve_output_path(args)
 
+    # baseline 只负责推理闭环，不引入训练依赖；后续 QLoRA 会复用同样的模型配置。
     inference_config = InferenceConfig(
         model_id=args.model_id,
         adapter_path=args.adapter_path,
@@ -95,6 +85,7 @@ def main() -> int:
     import torch
     from datasets import load_dataset
 
+    # 真实 baseline 必须在 Colab GPU 上运行；CPU runtime 即使能下载模型，也没有工程价值。
     if not torch.cuda.is_available():
         raise RuntimeError("CUDA is not available. Switch Colab runtime to GPU before running baseline.")
 
@@ -108,6 +99,7 @@ def main() -> int:
     print("Model loaded.")
 
     print(f"\nLoading ChartQA streaming dataset split={args.split!r}...")
+    # 小批量 baseline 用 streaming，避免为了 5/20 条样本下载完整数据集。
     dataset = load_dataset("HuggingFaceM4/ChartQA", split=args.split, streaming=True)
 
     records: list[dict[str, Any]] = []
@@ -120,6 +112,7 @@ def main() -> int:
         image = sample["image"].convert("RGB")
         question = sample["query"]
         labels = sample["label"]
+        # ChartQA 的 label 通常是列表；baseline 阶段用第一个答案做即时反馈。
         reference_answer = labels[0] if isinstance(labels, list) and labels else labels
 
         print(f"\n[{idx + 1}/{args.n_samples}] Q: {question}")
@@ -135,6 +128,7 @@ def main() -> int:
             image_path=None,
         )
 
+        # 这里只打印快速 exact；正式报告用 scripts/evaluate_predictions.py 重新计算 relaxed 指标。
         is_exact = exact_match(result.answer, reference_answer)
         record = asdict(result)
         record.update(
