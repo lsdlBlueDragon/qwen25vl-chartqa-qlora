@@ -28,6 +28,8 @@ Local machine usage is limited to non-training smoke tests. Training and full ev
 - Task breakdown: `docs/tasks_recommended_route.md`
 - Local environment guide: `docs/local_route_requirements_notes.md`
 - GitHub/Colab/Drive workflow: `docs/github_colab_drive_workflow.md`
+- Colab quickstart: `docs/colab_quickstart.md`
+- Baseline inference guide: `docs/baseline_inference.md`
 - Environment check script: `scripts/env_check.py`
 
 ## Local Smoke Test
@@ -39,3 +41,11 @@ Use the local Python environment specified in `AGENTS.md`:
 ```
 
 This only checks environment visibility. It does not download models, load ChartQA, or train.
+
+## Baseline Dry Run
+
+```powershell
+& 'D:\ProgramData\anaconda3\envs\torch_tf_cuda129\python.exe' scripts\run_baseline_image.py --image app\examples\placeholder.png --question "What is the maximum value?" --dry-run
+```
+
+This validates the baseline CLI without loading the model.

@@ -1,0 +1,18 @@
+model:
+  model_id: Qwen/Qwen2.5-VL-3B-Instruct
+  adapter_path: null
+  load_in_4bit: true
+  device_map: auto
+  torch_dtype: auto
+  min_pixels: 50176
+  max_pixels: 401408
+
+generation:
+  max_new_tokens: 64
+  temperature: 0.0
+  top_p: 1.0
+
+runtime:
+  intended_environment: colab_gpu
+  local_policy: dry_run_or_single_image_only
+
