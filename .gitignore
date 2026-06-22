@@ -10,6 +10,8 @@ venv/
 
 data/raw/
 data/cache/
+data/processed/*.jsonl
+data/processed/*_images/
 data/processed/*.arrow
 data/processed/*.parquet
 !data/.gitkeep

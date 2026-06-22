@@ -107,6 +107,26 @@ This cell performs inference, local JSONL saving, Drive backup, and a small exac
   --drive-metrics-dir /content/drive/MyDrive/qwen25vl-chartqa-qlora/outputs/metrics
 ```
 
+### 8. Prepare ChartQA SFT Data
+
+```python
+%cd /content/qwen25vl-chartqa-qlora
+
+PROJECT_DRIVE = "/content/drive/MyDrive/qwen25vl-chartqa-qlora"
+
+!python scripts/prepare_chartqa_sft.py \
+  --split train \
+  --n-samples 100 \
+  --output data/processed/chartqa_train_sft_100.jsonl \
+  --drive-output-dir {PROJECT_DRIVE}/data/processed
+
+!python scripts/prepare_chartqa_sft.py \
+  --split val \
+  --n-samples 50 \
+  --output data/processed/chartqa_val_sft_50.jsonl \
+  --drive-output-dir {PROJECT_DRIVE}/data/processed
+```
+
 ## Checkpoint and Cache Policy
 
 Use Drive for:
