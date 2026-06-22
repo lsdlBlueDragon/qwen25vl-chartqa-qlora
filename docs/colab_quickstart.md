@@ -127,6 +127,25 @@ PROJECT_DRIVE = "/content/drive/MyDrive/qwen25vl-chartqa-qlora"
   --drive-output-dir {PROJECT_DRIVE}/data/processed
 ```
 
+### 9. QLoRA Smoke Training
+
+```python
+%cd /content/qwen25vl-chartqa-qlora
+!git pull
+
+PROJECT_DRIVE = "/content/drive/MyDrive/qwen25vl-chartqa-qlora"
+
+!python scripts/train_qwen25vl_qlora.py \
+  --train-jsonl data/processed/chartqa_train_sft_100.jsonl \
+  --eval-jsonl data/processed/chartqa_val_sft_50.jsonl \
+  --output-dir outputs/adapters/chartqa_qlora_smoke_100 \
+  --drive-output-dir {PROJECT_DRIVE}/outputs/adapters \
+  --max-steps 20 \
+  --per-device-train-batch-size 1 \
+  --gradient-accumulation-steps 4 \
+  --load-in-4bit
+```
+
 ## Checkpoint and Cache Policy
 
 Use Drive for:
