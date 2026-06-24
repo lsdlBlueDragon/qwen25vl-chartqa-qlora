@@ -36,6 +36,10 @@ This run is the first small-scale experiment after the QLoRA smoke test. It chec
 
 The latest full notebook rerun improved by 1 exact-match point and 1 relaxed-accuracy point on the val-100 slice. A prior run reached 52.00% exact and 74.00% relaxed, so this small experiment shows a positive but modest gain with normal run-to-run variance. The next decision should be based on error and delta analysis rather than immediately scaling training blindly.
 
+## Evaluation Note
+
+The first delta analysis exposed a weakness in the relaxed numeric metric: year/date answers such as `2006` vs `2018` could be counted as relaxed-correct because they are within the default 5% numeric tolerance. The evaluator now treats year/date questions, and plain four-digit year references, as strict for relaxed numeric matching. Re-run metrics after this change before reporting final numbers.
+
 ## Error Export Cell
 
 Run this in Colab to generate detailed error records for analysis:

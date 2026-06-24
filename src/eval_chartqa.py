@@ -12,6 +12,7 @@ class EvaluationConfig:
     numeric_rel_tol: float = 0.05
     numeric_abs_tol: float = 1e-6
     allow_percent_scale: bool = True
+    strict_year_numeric: bool = True
 
 
 def load_jsonl(path: str | Path) -> list[dict[str, Any]]:
@@ -77,6 +78,18 @@ def parse_number(value: Any) -> float | None:
         return None
 
 
+def looks_like_year(value: Any) -> bool:
+    text = normalize_text(value)
+    return re.fullmatch(r"(?:18|19|20|21)\d{2}", text) is not None
+
+
+def is_year_or_date_question(record: dict[str, Any], reference: Any) -> bool:
+    question = normalize_text(record.get("question") or record.get("query") or "")
+    if any(word in question for word in ["year", "date", "when"]):
+        return True
+    return looks_like_year(reference)
+
+
 def numbers_close(prediction: float, reference: float, config: EvaluationConfig) -> bool:
     if math.isclose(prediction, reference, rel_tol=config.numeric_rel_tol, abs_tol=config.numeric_abs_tol):
         return True
@@ -106,12 +119,27 @@ def relaxed_numeric_match(prediction: Any, reference: Any, config: EvaluationCon
     return numbers_close(pred_number, ref_number, config)
 
 
+def relaxed_numeric_match_for_record(
+    record: dict[str, Any],
+    prediction: Any,
+    reference: Any,
+    config: EvaluationConfig,
+) -> bool:
+    if config.strict_year_numeric and is_year_or_date_question(record, reference):
+        return False
+    return relaxed_numeric_match(prediction, reference, config)
+
+
 def classify_record(record: dict[str, Any], config: EvaluationConfig) -> dict[str, Any]:
     prediction = prediction_text(record)
     reference = first_reference(record)
     is_exact = exact_match(prediction, reference)
     is_numeric = parse_number(reference) is not None
-    is_relaxed_numeric = relaxed_numeric_match(prediction, reference, config) if is_numeric else False
+    is_relaxed_numeric = (
+        relaxed_numeric_match_for_record(record, prediction, reference, config)
+        if is_numeric
+        else False
+    )
     is_relaxed_correct = is_exact or is_relaxed_numeric
 
     return {
@@ -182,4 +210,3 @@ def evaluate_records(
     metrics = summarize(evaluated)
     errors = [record for record in evaluated if not record["eval_relaxed_correct"]]
     return metrics, evaluated, errors
-
