@@ -30,11 +30,11 @@ This run is the first small-scale experiment after the QLoRA smoke test. It chec
 | Run | Exact | Relaxed | Relaxed numeric |
 | --- | ---: | ---: | ---: |
 | Baseline val100 | 49.00% | 72.00% | 67.61% |
-| QLoRA train1k steps100 val100 | 52.00% | 74.00% | 69.01% |
+| QLoRA train1k steps100 val100 | 50.00% | 73.00% | 69.01% |
 
 ## Initial Takeaway
 
-The adapter improved by 3 exact-match points and 2 relaxed-accuracy points on the val-100 slice. This is a useful first positive result, but it is still a small experiment. The next decision should be based on error analysis rather than immediately scaling training blindly.
+The latest full notebook rerun improved by 1 exact-match point and 1 relaxed-accuracy point on the val-100 slice. A prior run reached 52.00% exact and 74.00% relaxed, so this small experiment shows a positive but modest gain with normal run-to-run variance. The next decision should be based on error and delta analysis rather than immediately scaling training blindly.
 
 ## Error Export Cell
 
@@ -58,6 +58,24 @@ Then summarize error types:
 !python scripts/analyze_chartqa_errors.py \
   --errors outputs/chartqa_val_qlora_train1k_steps100_100_errors.jsonl \
   --output outputs/chartqa_val_qlora_train1k_steps100_100_error_analysis.json
+```
+
+To compare baseline and adapter behavior, first export a baseline evaluated file:
+
+```python
+!python scripts/evaluate_predictions.py \
+  --predictions outputs/chartqa_val_baseline_100.jsonl \
+  --metrics-output outputs/chartqa_val_baseline_100_metrics.json \
+  --evaluated-output outputs/chartqa_val_baseline_100_evaluated.jsonl
+```
+
+Then run the comparison:
+
+```python
+!python scripts/compare_chartqa_runs.py \
+  --baseline-evaluated outputs/chartqa_val_baseline_100_evaluated.jsonl \
+  --adapter-evaluated outputs/chartqa_val_qlora_train1k_steps100_100_evaluated.jsonl \
+  --output outputs/chartqa_val_qlora_train1k_steps100_100_vs_baseline.json
 ```
 
 Keep detailed `errors` and `evaluated` files local during routine iteration. Copy them to Drive only when they are needed for long-term reporting.
