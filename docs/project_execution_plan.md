@@ -25,7 +25,7 @@ The project is complete when a fresh clone can install documented dependencies, 
 | P4.1 | Publish hardmix adapter | Versioned Hugging Face adapter repository and model card are available | blocked |
 | P4.2 | Deploy GPU Space | Public Space passes upload/question inference smoke test | blocked |
 | P5.1 | Rewrite README | README contains architecture, final table, reproduction commands, demo link, and limitations | completed |
-| P5.2 | Final clean-clone verification | Documented setup and non-GPU tests pass from a clean checkout | pending |
+| P5.2 | Final clean-clone verification | Documented setup and non-GPU tests pass from a clean checkout | completed |
 
 P4 is marked blocked because publishing and deployment require the user's Hugging Face account, repository choices, credentials, and potentially paid GPU hardware. Local preparation for P4 can proceed without those credentials.
 
@@ -42,9 +42,7 @@ P4 is marked blocked because publishing and deployment require the user's Huggin
 
 ## Immediate next execution block
 
-1. Review the complete intended Git diff and define explicit staging groups.
-2. After user authorization, create the cleanup/implementation commit needed for clean-checkout verification.
-3. Run P5.2 from a clean checkout or worktree.
-4. Resume P4.1/P4.2 after the user supplies Hugging Face repository decisions and credentials.
+1. Push the verified local commits to `origin/main`.
+2. Resume P4.1/P4.2 after the user supplies Hugging Face repository decisions, credentials, and GPU hardware choice.
 
 The plan should be updated after every completed block. Do not create another dated plan unless this file is explicitly retired.

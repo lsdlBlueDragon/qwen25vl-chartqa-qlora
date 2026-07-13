@@ -53,7 +53,7 @@ All six inspected adapter directories contain a model weight file and configurat
 
 ## Resume point
 
-Continue with the Git diff review described in `docs/project_execution_plan.md`. Do not stage or commit until the user authorizes that Git operation. P5.2 requires a clean committed state. Publishing and Space deployment require explicit user credentials and repository decisions.
+The local Git commits and clean-worktree verification are complete. Push the verified commits to `origin/main`, then continue with Hugging Face publication after repository IDs, credentials, and GPU hardware are available.
 
 ## Handoff update rule
 
@@ -67,3 +67,4 @@ Update this file in place after each meaningful work block. Record the new statu
 - 2026-07-13: Added SFT-record and CLI dry-run regression tests. Implemented `app/app.py` with lazy base/hardmix selection, one active model in memory, latency output, environment configuration, and analytics-disabled dry-run support. Verification: `8 passed`; `app/app.py --dry-run` succeeded without loading model weights.
 - 2026-07-13: Added a self-created SVG chart and three built-in Gradio examples. Prepared the adapter model card, Space metadata/dependencies, and release checklist. Rewrote the root README around the frozen full-val result and current demo. Verification: `9 passed`, Gradio dry-run succeeded, and both Hugging Face metadata blocks parsed successfully.
 - 2026-07-13: Completed Python syntax checks and prepared `docs/git_staging_plan.md` with three explicit commit groups. Nothing has been staged or committed; P5.2 still requires user authorization for the Git commits.
+- 2026-07-13: Created three reviewed commits after writing a path-preserving backup with SHA-256. A detached clean worktree at `4b3f559` passed 9 tests, Gradio dry-run, and YAML/metadata validation. Git removed the worktree registration; an ignored `.pytest_cache` residue could not be deleted because of the execution environment ACL.
