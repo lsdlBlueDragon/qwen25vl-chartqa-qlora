@@ -34,3 +34,21 @@ outputs/adapters/*
 *.pth
 
 .ipynb_checkpoints/
+
+# Local assistant/tool state
+.claude/
+.agents/
+.codex/
+
+# Superseded local handoff snapshots; keep docs/project_handoff.md instead.
+qwen25vl_chartqa_handoff_*.md
+
+# Google Drive desktop client placeholders and conflict copies.
+*.gdoc
+*.gsheet
+*.gslides
+* (conflicted copy *)
+* (冲突的副本 *)
+
+# Local pre-commit safety archives.
+backups/

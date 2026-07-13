@@ -1,0 +1,79 @@
+schema_version: 1
+frozen_at: 2026-07-13
+
+benchmark:
+  dataset: HuggingFaceM4/ChartQA
+  split: val
+  total: 1920
+  primary_metric: relaxed_accuracy
+  evaluator: src/eval_chartqa.py
+  note: Normalization v2 is diagnostic-only and is not used for model selection.
+
+model:
+  base_model: Qwen/Qwen2.5-VL-3B-Instruct
+  quantized_inference: true
+
+artifact_archive:
+  type: private_google_drive
+  root: "G:\\我的云端硬盘\\qwen25vl-chartqa-qlora"
+  full_val_dir: outputs/chartqa_3b_full_val
+  adapter_dir: outputs/adapters
+  public_adapter_repo: null
+
+runs:
+  baseline_default:
+    role: baseline
+    adapter: null
+    exact_correct: 1262
+    exact_accuracy: 0.6572916667
+    relaxed_correct: 1458
+    relaxed_accuracy: 0.759375
+    human_relaxed_accuracy: 0.6895833333
+    machine_relaxed_accuracy: 0.8291666667
+    metrics_file: chartqa_val_full_3b_baseline_default_1920_metrics.json
+
+  experiment_d_hardmix:
+    role: deployment_candidate
+    adapter: chartqa_qlora_hardmix1k_steps100
+    exact_correct: 1331
+    exact_accuracy: 0.6932291667
+    relaxed_correct: 1495
+    relaxed_accuracy: 0.7786458333
+    human_relaxed_accuracy: 0.721875
+    machine_relaxed_accuracy: 0.8354166667
+    metrics_file: chartqa_val_full_3b_hardmix1k_steps100_1920_metrics.json
+
+  experiment_f_steps250_r16a32:
+    role: best_exact_comparison
+    adapter: chartqa_qlora_train1k_steps250_r16a32
+    exact_correct: 1334
+    exact_accuracy: 0.6947916667
+    relaxed_correct: 1491
+    relaxed_accuracy: 0.7765625
+    human_relaxed_accuracy: 0.7197916667
+    machine_relaxed_accuracy: 0.8333333333
+    metrics_file: chartqa_val_full_3b_steps250_r16a32_1920_metrics.json
+
+other_verified_runs:
+  standard_steps100:
+    exact_accuracy: 0.6859375
+    relaxed_accuracy: 0.7723958333
+  standard_numeric_final:
+    exact_accuracy: 0.6822916667
+    relaxed_accuracy: 0.7697916667
+  experiment_a_steps200:
+    exact_accuracy: 0.6901041667
+    relaxed_accuracy: 0.7755208333
+  experiment_b_calcnum:
+    exact_accuracy: 0.6890625
+    relaxed_accuracy: 0.7744791667
+
+oracle_diagnostic:
+  runs: 7
+  relaxed_correct: 1595
+  relaxed_accuracy: 0.8307291667
+  all_runs_wrong: 325
+
+not_completed:
+  module_24a:
+    reason: Local script and Colab module exist, but no result directory was found in the G drive archive.
