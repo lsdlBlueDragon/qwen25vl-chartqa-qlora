@@ -1,0 +1,36 @@
+{
+  "total": 85,
+  "subset_csv": "C:\\Users\\90553\\Downloads\\chartqa_all_wrong_recommended_diagnostic_subset.csv",
+  "manual_audit_csv": "C:\\Users\\90553\\Downloads\\chartqa_all_wrong_manual_audit_table.csv",
+  "full_val_sft_jsonl": "G:\\我的云端硬盘\\qwen25vl-chartqa-qlora\\data\\processed\\chartqa_val_full_sft_1920.jsonl",
+  "image_root": "G:\\我的云端硬盘\\qwen25vl-chartqa-qlora\\data\\processed\\chartqa_val_full_sft_1920_images",
+  "reviewed_primary_counts": {
+    "counting_or_category_count": 8,
+    "data_or_evaluator_issue": 2,
+    "date_axis_reading": 9,
+    "date_serial_or_label_format": 2,
+    "extreme_value_or_ranking": 9,
+    "multi_step_calculation": 9,
+    "numeric_value_or_scale": 10,
+    "text_label_lookup": 16,
+    "visual_mapping_or_legend": 10,
+    "yes_no_or_boolean": 10
+  },
+  "review_flag_counts": {
+    "needs_legend_color_mapping": 44,
+    "needs_table_or_value_extraction": 67,
+    "resolution_sensitive": 66,
+    "shared_wrong_consensus": 79,
+    "data_or_evaluator_issue": 16,
+    "needs_axis_date_grounding": 27,
+    "list_answer_format": 7,
+    "date_serial_reference": 2,
+    "calculation_after_extraction": 6,
+    "unstable_across_runs": 1,
+    "boolean_or_trend": 10
+  },
+  "human_or_machine_counts": {
+    "0": 72,
+    "1": 13
+  }
+}
