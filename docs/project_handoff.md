@@ -53,7 +53,15 @@ All six inspected adapter directories contain a model weight file and configurat
 
 ## Resume point
 
-The local Git commits and clean-worktree verification are complete. Push the verified commits to `origin/main`, then continue with Hugging Face publication after repository IDs, credentials, and GPU hardware are available.
+The local Git commits, clean-worktree verification, and GitHub push are complete. Continue with Hugging Face publication after repository IDs, credentials, and GPU hardware are available.
+
+Current verified backup location:
+
+```text
+F:\LLM_project_backups\qwen25vl-chartqa-qlora\2026-07-13
+```
+
+It contains the pre-Git working-file recovery archive, a complete Git history bundle, and `SHA256SUMS.txt`. The C-drive pre-Git backup files were removed after source/target hashes matched. Future backups must use F first and E second.
 
 ## Handoff update rule
 
@@ -68,3 +76,4 @@ Update this file in place after each meaningful work block. Record the new statu
 - 2026-07-13: Added a self-created SVG chart and three built-in Gradio examples. Prepared the adapter model card, Space metadata/dependencies, and release checklist. Rewrote the root README around the frozen full-val result and current demo. Verification: `9 passed`, Gradio dry-run succeeded, and both Hugging Face metadata blocks parsed successfully.
 - 2026-07-13: Completed Python syntax checks and prepared `docs/git_staging_plan.md` with three explicit commit groups. Nothing has been staged or committed; P5.2 still requires user authorization for the Git commits.
 - 2026-07-13: Created three reviewed commits after writing a path-preserving backup with SHA-256. A detached clean worktree at `4b3f559` passed 9 tests, Gradio dry-run, and YAML/metadata validation. Git removed the worktree registration; an ignored `.pytest_cache` residue could not be deleted because of the execution environment ACL.
+- 2026-07-13: Pushed commits through `fe4efab` to `origin/main`. Migrated recovery archives to F, created and verified a complete Git bundle, wrote `SHA256SUMS.txt`, and removed all C-drive pre-Git backup files.

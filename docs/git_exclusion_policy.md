@@ -35,6 +35,13 @@ Publish the selected adapter through a versioned Hugging Face model repository. 
 
 The G drive remains a private backup. Local and G drive absolute paths may appear in handoff documentation, but application code and public reproduction commands must not require those paths.
 
+Repository safety backups must not be retained on the project C drive. Use this storage order:
+
+1. `F:\LLM_project_backups\qwen25vl-chartqa-qlora`;
+2. `E:\LLM_project_backups\qwen25vl-chartqa-qlora` when F is unavailable.
+
+Every backup must include a SHA-256 manifest. For Git history, create and verify a `git bundle`; for uncommitted work, preserve relative paths in an archive. The repository-local `backups/` ignore rule is only a temporary safety guard and must not be used for long-term storage.
+
 ## Before staging changes
 
 Run:

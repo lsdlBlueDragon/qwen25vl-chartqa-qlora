@@ -16,6 +16,7 @@ The project is complete when a fresh clone can install documented dependencies, 
 | P1.1 | Establish documentation entry points | Review, plan, handoff, and Git exclusion policy exist | completed |
 | P1.2 | Define repository inclusion/exclusion policy | `.gitignore` and policy document agree | completed |
 | P1.3 | Triage all untracked files | Every untracked file is intentionally included, ignored, archived, or removed with approval | completed |
+| P1.4 | Move safety backups off the C drive | Verified recovery archive and Git bundle exist on F or E; C contains no backup files | completed |
 | P2.1 | Make pytest tests executable | `python -m pytest -q` runs and passes non-GPU tests | completed |
 | P2.2 | Add focused data and CLI tests | SFT record and dry-run behavior have regression coverage | completed |
 | P3.1 | Implement `app/app.py` | Local/Colab Gradio smoke test accepts image and question | completed |
@@ -42,7 +43,6 @@ P4 is marked blocked because publishing and deployment require the user's Huggin
 
 ## Immediate next execution block
 
-1. Push the verified local commits to `origin/main`.
-2. Resume P4.1/P4.2 after the user supplies Hugging Face repository decisions, credentials, and GPU hardware choice.
+1. Resume P4.1/P4.2 after the user supplies Hugging Face repository decisions, credentials, and GPU hardware choice.
 
 The plan should be updated after every completed block. Do not create another dated plan unless this file is explicitly retired.
